@@ -1,0 +1,36 @@
+<apex:page showHeader="false">
+
+
+ <script src='../../soap/ajax/29.0/connection.js' type='text/javascript'></script>
+
+        <script src='../../soap/ajax/29.0/apex.js' type='text/javascript'></script>
+    <!--      <script crossorigin="anonymous" src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/5.0.7/react-redux.min.js"></script>
+        
+     <!--  <script src="https://clportal.s3.amazonaws.com/2.7.1/portal.min.js"></script>  -->
+        
+        <!-- <script src = "https://5fb8cfa1.ngrok.io/dist/builder.dev.js"></script> -->
+         <script loadOnReady="true" src = "https://clportal.s3.amazonaws.com/2.7.1/builder.min.js"></script>
+         
+        <!-- <script src = "https://37a139bb.ngrok.io/dist/builder.dev.js"></script> -->
+           
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.4/purify.min.js"></script> 
+       
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
+        
+        
+             
+        
+
+<script type='text/javascript' src='https://c.la1-c2-iad.salesforceliveagent.com/content/g/js/44.0/deployment.js'></script>
+
+<script type='text/javascript'>
+
+liveagent.init('https://d.la1-c2-iad.salesforceliveagent.com/chat', '5725A000000gVNG', '00D5A000000Bv7c');
+
+</script>
+
+        
+        </apex:page>

@@ -1,0 +1,874 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0"
+    controller="clcommon.PortalActions">
+    <!-- <apex:outputText > {!$Api.Session_ID} {!$User.Id}  </apex:outputText> -->
+    <apex:include pageName="clcommon__ResolveNamespace" />
+    <html>
+    <head>
+    
+        <script  src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+         <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> 
+        <apex:include pageName="HeadLinks"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>   
+        <title>American Express</title>
+        
+         <style>
+        body
+        {
+        background: #fff;
+        }    
+               
+        div[data-style-actor-name="webster_loan_denied_comp_actor"] [data-style-id="record"] .record-content
+        {
+           display: list-item;
+           padding: 0;
+           margin-left:25px;
+        }
+        
+        .loader {
+          border: 16px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 16px solid #3498db;
+          width: 120px;
+          height: 120px;
+          -webkit-animation: spin 2s linear infinite; /* Safari */
+          animation: spin 2s linear infinite;
+          border-top: 16px solid blue;
+          border-right: 16px solid green;
+          border-bottom: 16px solid red;
+          border-left: 16px solid pink;
+          margin: auto;
+        }
+        
+        /* Safari */
+        @-webkit-keyframes spin {
+          0% { -webkit-transform: rotate(0deg); }
+          100% { -webkit-transform: rotate(360deg); }
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
+        div[data-style-actor-name=WebsterInitRequest].actor-wrapper
+        {
+               text-align: center;               
+        }
+        
+        .chat-button
+        {
+        position: fixed;
+        bottom: 0px;
+        right: 0px
+        }
+        
+   
+   
+    div[data-style-actor-name=Webster_Customer_Applies_Approved_Pricing] [data-style-id='record'] .record-content {
+        position: relative;
+        background-color: #ffffff;
+        color: #37444e;
+        border: 1px solid grey;
+        margin-bottom: 10px;
+   }
+   
+   div[data-style-actor-name=Webster_Customer_Applies_Approved_Pricing] .highlighted .record-content {   
+        border: 3px solid grey;
+   }  
+   
+   .add-property-action a{
+       font-size : 16px;
+       text-decoration: underline;
+   }
+   <!-- To add the close button to each record in personla info page resizing the width of the second elemnt to 45px less the actuall value -->
+   div[data-style-field-name=genesis__Mortgage_Payment_inv__c] {
+       width: calc(50% - 45px) !important;
+   }
+   
+   div[data-style-action-name=remove] .action{
+       color: #0a57a4;
+       border-color : #0a57a4;
+   }
+
+       
+   div[data-style-actor-name=ClsLayoutOneContent]{
+      max-width: 1056px;
+      margin-left: auto;
+      margin-right: auto;
+   } 
+   
+   div[data-style-actor-name=header]{
+       max-width:1056px;
+       margin: auto;
+   }
+   
+  
+   
+   .still-want-to-apply-link, .account-not-found-link{
+       cursor: pointer;
+       margin-left: 5px;
+       color: #337ab7;
+       text-decoration: none;
+       font-size:16px;
+   }
+   
+   account-not-found-link:link, account-not-found-link:visited, account-not-found-link:hover{
+        color: blue;
+    }
+   
+   .criteria-spec-icon{
+       padding-right: 10px;
+   }
+   
+   
+   
+   
+   // tweaks on top of style guide to get same look and feel
+   body [data-style-id=app] {
+       font-size : 16px;
+   }
+   .button{
+       font-size : 16px;
+       padding : 10px;
+   }
+   
+   .button.disabled{
+      opacity: .5;
+      cursor: not-allowed;
+   }
+   
+   h1.page-title {
+      font-size: 26px;,
+      font-weight: bold;
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    h3, h4, h5, h6 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+   
+   [data-style-id="radiobutton-label"], [data-style-id="checkbox-label"] {
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        font-size: 16px;
+        color: #404040; 
+    }
+    
+    <!-- Check box labels to be align beside input check box --> 
+    input[type=checkbox] + label{
+       margin-left: 20px;
+        margin-top: -20px;
+        display:block; 
+    }
+    
+    
+     <!-- Loan process stage static comp stylings-->
+        .stage-circle{
+            border-radius: 50%;
+            color: black;
+            background-color: grey;
+            position: absolute;
+            line-height: 32px;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            right: 0px;
+        }
+        
+        .stage-container{
+            float:left;
+            width:20%;
+            position: relative; 
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .stage-circle-bar{
+            text-align: center;
+            margin-left: -50%;
+            height: 40px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .stage-bar{
+            width: 100%;
+            background: grey;
+            height: 8px;
+            position: absolute;
+            top: 12px;
+            right: 30px;
+        }
+        .stage-label{   
+            overflow: visible;
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            position: relative;
+            right: 16px;
+        }
+        #main-stage-container .mobile-stage-label{
+           display:none;
+        }
+        
+        #main-stage-container{
+            height: 75px;
+        }
+        @media screen only and (max-width: 768px){
+            .stage-label{
+                display:none;
+            }
+        }
+        <!-- stage 1 selected-->
+       .stage1-selected #stage1 .stage-circle{
+           background-color: #ffb515;
+       }
+        
+        <!-- stage 1 complete-->
+       .stage1-complete #stage1 .stage-circle{
+           background-color: #ffb515;
+       }
+       .stage1-complete #stage2 .stage-bar{
+            background-color: #ffb515;
+       }  
+       .stage1-complete #stage2 .stage-circle{
+           background-color: #ffb515;
+       } 
+       
+       <!-- stage 2 complete-->      
+       .stage2-complete #stage3 .stage-bar{
+            background-color: #ffb515;
+       } 
+       .stage2-complete #stage3 .stage-circle{
+           background-color: #ffb515;
+       }  
+       
+       <!-- stage 3 complete-->      
+       .stage3-complete #stage4 .stage-bar{
+            background-color: #ffb515;
+       }  
+       .stage3-complete #stage4 .stage-circle{
+           background-color: #ffb515;
+       } 
+       
+       <!-- stage 4 complete-->
+       .stage4-complete #stage5 .stage-circle{
+           background-color: #ffb515;
+       }
+       
+     div[data-style-field-name=Account_balance__c]  .flabel{
+        width: 50%;
+        float: left;
+        font-weight: 100;
+     }
+     
+     div[data-style-field-name=Account_balance__c]  .control{
+        width: 50%;
+        float: left;
+        text-align: right;
+     }
+     
+     div[data-style-actor-name=webster_cdd_questions] .radiobuttons .radiobutton-entry{
+         float:left;
+     }
+     
+     .float-right{
+         float:right;
+     }
+     
+     a.account-not-found-link:visited {
+         color: #337ab7;
+     }
+     
+     div[data-style-actor-name="customer_applies_application_input"] .component-actions-bottom-right{
+     position:relative;
+     top:50px;
+     z-index:9999;
+     text-align:right;
+     }
+         
+     <!-- to Display full question without any trimming with ellipses-->
+     div[data-style-actor-name=webster_cdd_questions] .flabel{
+         height: auto;
+         white-space: unset;
+     }
+     
+     div[data-style-actor-name=webster_cdd_questions] .flabel label{
+         white-space: unset;
+     }
+     
+     <!-- to show the denial reasons without overalpping-->
+     div[data-style-actor-name=webster_loan_denied_comp_actor] div[data-style-id=record] div[data-style-id=list-row]{
+        height: auto;
+        line-height: normal;
+     }
+     
+     <!-- few styles to make look the default pops look like loading & failure overlays with out any close btn -->
+     div[data-style-actor-name=failureOverlay] + div[data-style-id=modal-close-icon]{
+         display : none;
+     }
+     
+     div[data-style-actor-name=loderOverlay] + div[data-style-id=modal-close-icon]{
+         display : none;
+     }
+     
+     
+   <!-- Smart phone category-->   
+   @media only screen and (max-width : 768px){
+      div[data-style-actor-name=Webster_Customer_Applies_Approved_Pricing] div[data-style-id=record]{
+           width: 100% !important;
+       }
+       
+       div[data-style-actor-name=Webster_Customer_Applies_Alternate_Approved_Pricing] div[data-style-id=record]{
+           width: 100% !important;
+       }
+       
+       div[data-style-actor-name=webster_bank_accounts_autoPay] div[data-style-id=record]{
+           width: 100% !important;
+       }
+       
+       div[data-style-actor-name=webster_bank_accounts_deposits] div[data-style-id=record]{
+           width: 100% !important;
+       }
+       
+       
+       
+       
+       div[data-style-field-name=Request_Hard_Credit_Pull__c]{
+           min-height: 50px;
+       }
+       
+       .stage-container .stage-label{
+           display:none;
+       }
+       
+       #main-stage-container .mobile-stage-label{
+           display:block;
+           width: 100%;
+           text-align: center;
+       }
+       
+   }     
+   
+   div[data-style-id="section-title"]{
+       display: block!important;
+    font-size: 24px!important;
+    font-weight: 900!important;
+    width: 100%!important;
+    padding-bottom: 25px 0 10px!important;
+   }
+ 
+     div[data-style-actor-name="IframeForDoc"]{
+         width: -webkit-fill-available;
+    height: -webkit-fill-available;
+     }
+   
+   iframe html{
+       display:block!important;
+   }
+   
+  .stage4-complete .stage-bar{
+   background:#f7b543
+   }
+   
+   div[data-style-actor-name="header"]{
+       background-color: #0a57a4;
+    color: #ffffff;
+    height: 65px;
+    min-width: 100%;}
+    
+    
+   div[data-style-actor-name="Customer_Failure"]
+   {
+       margin-top: 100px;
+    text-align: center;
+   }
+   
+   .Error_subtitle{
+       font-size:24px;
+       margin-bottom:5px;
+   }
+   .Error_title{
+       font-size:32px;
+       margin-bottom:40px;
+   }
+   
+   .Error_subtitle a{
+       text-decoration:underline;
+   }
+   
+    @keyframes lds-ellipsis3 {u
+  0%, 25% {
+    left: 32px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  50% {
+    left: 32px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  75% {
+    left: 100px;
+  }
+  100% {
+    left: 168px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes lds-ellipsis3 {
+  0%, 25% {
+    left: 32px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  50% {
+    left: 32px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  75% {
+    left: 100px;
+  }
+  100% {
+    left: 168px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  25%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+@-webkit-keyframes lds-ellipsis2 {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  25%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis {
+  0% {
+    left: 32px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  25% {
+    left: 32px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    left: 100px;
+  }
+  75% {
+    left: 168px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    left: 168px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+@-webkit-keyframes lds-ellipsis {
+  0% {
+    left: 32px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  25% {
+    left: 32px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    left: 100px;
+  }
+  75% {
+    left: 168px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  100% {
+    left: 168px;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+}
+.actor-wrapper .animation-message .lds-ellipsis {
+  position: relative;
+}
+.actor-wrapper .animation-message .lds-ellipsis > div {
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+}
+.actor-wrapper .animation-message .lds-ellipsis div > div {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f00;
+  position: absolute;
+  top: 100px;
+  left: 32px;
+  -webkit-animation: lds-ellipsis 1s cubic-bezier(0, 0.5, 0.5, 1) infinite forwards;
+  animation: lds-ellipsis 1s cubic-bezier(0, 0.5, 0.5, 1) infinite forwards;
+}
+.actor-wrapper .animation-message .lds-ellipsis div:nth-child(1) div {
+  -webkit-animation: lds-ellipsis2 1s cubic-bezier(0, 0.5, 0.5, 1) infinite forwards;
+  animation: lds-ellipsis2 1s cubic-bezier(0, 0.5, 0.5, 1) infinite forwards;
+  background: #35ACDD;
+}
+.actor-wrapper .animation-message .lds-ellipsis div:nth-child(2) div {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+  background: #3AB8DF;
+}
+.actor-wrapper .animation-message .lds-ellipsis div:nth-child(3) div {
+  -webkit-animation-delay: -0.25s;
+  animation-delay: -0.25s;
+  background: #50C9E1;
+}
+.actor-wrapper .animation-message .lds-ellipsis div:nth-child(4) div {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  background: #F7A758;
+}
+.actor-wrapper .animation-message .lds-ellipsis div:nth-child(5) div {
+  -webkit-animation: lds-ellipsis3 1s cubic-bezier(0, 0.5, 0.5, 1) infinite forwards;
+  animation: lds-ellipsis3 1s cubic-bezier(0, 0.5, 0.5, 1) infinite forwards;
+  background: #F59434;
+}
+.actor-wrapper .animation-message .lds-ellipsis {
+  width: 200px !important;
+  height: 200px !important;
+  -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+  transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}
+
+[data-style-action-name="uploadDocumentsDUMMY"] .action {
+    font-size: 2rem!important;
+    color: #7f7f7f!important;
+    padding:0px 20px;
+    cursor: not-allowed;
+    background-color: transparent!important;
+}
+
+div[data-style-action-name="doneSubmitting"] .button{
+padding:10px 30px !important;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+div[data-style-id="field"][data-style-field-name="Id"] {
+display:none;
+}
+
+div[data-style-actor-name="DocumentUpload"].actor-wrapper{
+    width: 50%!important;
+    margin: 2rem 20rem!important;
+    padding: 6rem 0!important;
+}
+div[data-style-actor-name="DocumentUpload"] .title{
+    font-size: 24px;
+    margin-top:1rem;
+}
+
+div[data-style-actor-name="DocumentUpload"].list-view{
+    padding: 0px!important;
+    border: 2px solid #717171;
+    border-radius: 6px;
+}
+
+div[data-style-actor-name="DocumentUpload"] .component-actions-bottom-left{
+    position: absolute;
+    left: auto;
+    margin-bottom:1rem;
+}
+
+[data-style-id='action'].upload-action .label {
+    font-size: 2rem!important;
+    color: #215c9f!important;
+    background-color:transparent!important;
+}
+
+[data-style-id='app'] [data-style-id='list-header'] [data-style-id='field-label']{
+font-size:1.5rem!important;
+}
+
+div[data-style-actor-name="DocumentUpload"] .fa{
+    font-size:2rem!important;
+}
+
+div[data-style-actor-name="DocumentUpload"] div[data-style-action-name="Submitted"]{
+    color:orange!important;
+}
+
+
+div[data-style-actor-name="DocumentUpload"] div[data-style-action-name="Accepted"]{
+    color:Green!important;
+}
+
+
+div[data-style-actor-name="DocumentUpload"] div[data-style-action-name="Open"]{
+    color:#215c9f!important;
+}
+
+div[data-style-actor-name="DocumentUpload"] div[data-style-action-name="Rejected"]{
+    color:red!important;
+}
+    .docStage {
+    margin-left: 16%;
+    font-size:16px!Important;
+    }
+    
+    div[data-style-actor-name="Customer_Applies_Approved"] .entries, div[data-style-actor-name="Customer_Repayment_Method"].actor-wrapper{
+    width:30%;
+    }
+    
+    div[data-style-actor-name="Customer_Applies_Approved_Pricing"].actor-wrapper{
+    width: 60%;
+    float: right;
+    top: -36rem;
+    border-left: 1px solid #c7c7c7!important;
+    padding: 4rem 0rem 8rem 2rem;
+    }
+    div[data-style-actor-name="Customer_Applies_Approved_Pricing"] .title{
+    top: -1rem;
+    left:2rem;
+    font-size: 16px;
+    font-weight: 700;
+    }
+    
+    div[data-style-actor-name="Customer_Applies_Approved_Pricing"] .column-headers [data-style-id="field-label"]{
+    font-size: 11px!important;
+    font-weight: bold;
+    color:black!important;
+    }
+    .docStage .stage-container{
+    width: 14%;
+    }
+    div[data-style-id="column-header"][data-style-field-name="clcommon__Category_Name__c"]{
+        width:75%!important;
+    }
+    div[data-style-id="field"][data-style-field-name="clcommon__Category_Name__c"]{
+        width:150%!important;
+    }
+    div[data-style-action-name="Submitted"],    div[data-style-action-name="Accepted"],    div[data-style-action-name="Rejected"],    div[data-style-action-name="Open"]{
+        transform: translateX(-21rem);
+        
+    } 
+  
+    div[data-style-action-name="Submitted"] .action,    div[data-style-action-name="Accepted"] .action,    div[data-style-action-name="Rejected"] .action,    div[data-style-action-name="Open"] .action{
+      cursor:auto!important;
+  }
+    
+    div[data-style-action-name="uploadDocumentsDUMMY"], .upload-action{
+     transform: translateX(-14rem);
+    }
+    div[data-style-action-name="DownloadDocumentsDUMMY"], div[data-style-action-name="DownloadDocuments"]{
+     transform: translateX(-7.5rem);
+         color: #215c9f!important;
+    }
+    div[data-style-action-name="DownloadDocumentsDUMMY"]{
+        color: #7f7f7f!important;
+       
+    }
+    div[data-style-action-name="DownloadDocumentsDUMMY"] .action{
+     cursor:not-allowed!important;
+    }
+    
+   div[data-style-actor-name="Customer_Applies_Approved_Pricing"]  [data-style-id="list-row"]::before {
+                position: absolute;
+                margin-left: 0.5rem;
+                padding-top: 0.3rem;
+                content: url('data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQ3MS42MTIgNDcxLjYxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDcxLjYxMiA0NzEuNjEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTY4Ljk4Nyw0MDIuNjI0YzkxLjk4LDkxLjk4MywyNDEuNjUyLDkxLjk4MywzMzMuNjM2LDBjOTEuOTgzLTkxLjk3Nyw5MS45ODMtMjQxLjY1OCwwLTMzMy42MzlzLTI0MS42NTUtOTEuOTgtMzMzLjYzNiwwICAgUy0yMi45OTMsMzEwLjY0Miw2OC45ODcsNDAyLjYyNHogTTg3LjI5LDg3LjI3NmM4MS44OTktODEuODk2LDIxNS4xNTItODEuODk2LDI5Ny4wNTIsMGM4MS44ODIsODEuODk0LDgxLjg4MiwyMTUuMTU0LDAsMjk3LjA1NSAgIGMtODEuODk5LDgxLjg4Ny0yMTUuMTY0LDgxLjg4Ny0yOTcuMDUyLDBDNS4zOTQsMzAyLjQzMSw1LjM5NCwxNjkuMTcsODcuMjksODcuMjc2eiIgZmlsbD0iIzAwMDAwMCIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=');
+            }
+            div[data-style-actor-name="Customer_Applies_Approved_Pricing"]   .highlighted  [data-style-id="list-row"]::before {
+                    position: absolute;
+                    margin-left: 0.5rem;
+                    padding-top: 0.3rem;
+                    content: url('data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxNnB4IiBoZWlnaHQ9IjE2cHgiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CjxwYXRoIGZpbGw9IiMwMDAwMDAiIGQ9Ik04IDRjLTIuMiAwLTQgMS44LTQgNHMxLjggNCA0IDQgNC0xLjggNC00LTEuOC00LTQtNHoiLz4KPHBhdGggZmlsbD0iIzAwMDAwMCIgZD0iTTggMWMzLjkgMCA3IDMuMSA3IDdzLTMuMSA3LTcgNy03LTMuMS03LTcgMy4xLTcgNy03ek04IDBjLTQuNCAwLTggMy42LTggOHMzLjYgOCA4IDggOC0zLjYgOC04LTMuNi04LTgtOHYweiIvPgo8L3N2Zz4K')!important;
+                }
+                 div[data-style-actor-name="Customer_Applies_Approved_Pricing"]   .highlighted  [data-style-id="list-row"]{
+                 background-color:#f1f1f1;
+                }
+                   div[data-style-actor-name="Customer_Applies_Approved_Pricing"]   .highlighted{
+                    border:none!important;
+                   
+                    }
+                
+          div[data-style-actor-name="Customer_Applies_Approved_Pricing"] [data-style-field-name="genesis__Residual_Term__c"]{
+          
+              padding-left:30px!important;
+          }
+          
+          
+          div[data-style-field-name="Repayment_Method__c"] .control label{
+              position: relative!important;
+    top: -17px!important;
+    left: 25px!important;
+    }
+    
+    div[data-style-field-name="Repayment_Method__c"] .control .subtitle{
+        font-size: 14px;
+    color: #717171;
+    }
+    
+    div[data-style-field-name="Repayment_Method__c"] .control .title{
+        font-size: 18px!important;
+    font-weight: 700!important;
+    margin-bottom: 10px!important;
+    }
+    
+    @media only screen and (max-width: 900px) {
+    
+    div[data-style-actor-name="Customer_Applies_Approved"].actor-wrapper{
+        margin-left:1rem;
+    }
+
+    div[data-style-actor-name="Customer_Applies_Approved_Pricing"].actor-wrapper{
+     width: 100%!important; 
+     float: none!important; 
+     top: 0!important; 
+     border-left:none!important;
+    }
+    
+    div[data-style-actor-name="Customer_Applies_Approved"] .entries, div[data-style-actor-name="Customer_Repayment_Method"].actor-wrapper{
+        width:100%!important;
+        margin:1rem;
+    }
+    }
+    
+    
+    div[data-style-actor-name="Customer_Applies_Approved_Pricing"] [data-style-field-name="Repayment_Term__c"]{
+    padding-left:30px!important;
+    }
+      
+      
+    div[data-style-actor-name="Amex_personalInfo_staticContent"].actor-wrapper, div[data-style-actor-name="customer_business_info"].actor-wrapper, div[data-style-actor-name="customer_personal_info"].actor-wrapper{
+        width:60%;
+    }  
+    
+        div[data-style-actor-name="Amex_personalInfo_staticContent"].actor-wrapper h1, div[data-style-section-name="loan_Purpose"] [data-style-id="section-title"], div[data-style-actor-name="customer_business_info"] .title, div[data-style-actor-name="customer_personal_info"] .title{
+          font-size:32px!important;
+          font-weight:100!important;
+      }
+      
+       div[data-style-actor-name="Amex_personalInfo_staticContent"].actor-wrapper div{
+           font-size:16px!important;
+       }
+      
+      div[data-style-field-name="genesis__Account__r_Ownership_at_least_25__c"].boolean [data-style-id="field-label"], div[data-style-field-name="genesis__Account__r_Direct_ownership_of_25__c"].boolean [data-style-id="field-label"]{
+          display:none!important;
+      }
+      
+      div[data-style-field-name="genesis__Account__r_Direct_ownership_of_25__c"].boolean{
+          
+          margin-bottom:30px!important;
+      
+      }
+      
+      div[data-style-actor-name="customer_bottom_nav"] p{
+          font-size:16px!important;
+      }
+    div[data-style-id='popup'] .popup-content.below{
+    max-width: 200px!important;
+    padding: 15px!important;
+    }      
+    
+    div[data-style-field-name="genesis__CL_Purpose__c"] .flabel{
+    display: inline-block;
+    float: right;
+    top: -3rem;
+    position: relative;
+    left: 7rem;
+    }
+    
+     div[data-style-field-name="genesis__CL_Purpose__c"] .flabel .fa{
+         font-size:24px!important;
+     }
+      div[data-style-actor-name="Login"] .entries{
+             padding: 4rem 0!important;
+     }
+    
+    div[data-style-actor-name="Login"].actor-wrapper{
+        width:30%!important;
+        margin:7rem!important;
+            border: 1px solid #717171;
+    border-radius: 5px;
+    }
+    
+    div[data-style-actor-name="Login"] .title{
+        font-size:32px!important;
+        font-weight:300!important;
+        padding-top:1rem;
+    }    
+    
+     div[data-style-actor-name="Login"] .subtitle{
+        padding-top:1rem;
+    }    
+    
+    div[data-style-actor-name="Login"] .component-actions-bottom-right{
+        width: 95%!important;
+    margin: 3rem 1rem!important;
+    }
+    
+     div[data-style-actor-name="Login"] .component-actions-bottom-right [data-style-id="action-wrapper"]{
+     width:100%!important;
+     }
+     
+     div[data-style-actor-name="Login"] .component-actions-bottom-right [data-style-id="action-wrapper"] .action{
+     width:100% !important;    
+     }
+    
+ </style>             
+    </head>
+    <body>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div id='app' pageId='Amex_landing'></div>
+        </div>
+      </div>
+   </div>
+   
+     <apex:include pageName="BodyScripts"/>   
+     
+<a class="btn btn-primary chat-button" id="liveagent_button_online_5735A000000khjC"  href="javascript://Chat" style="display: none;" onclick="liveagent.startChat('5735A000000khjC')"> Chat with Agent now</a>
+<div id="liveagent_button_offline_5735A000000khjC" style="display: none;"><!-- Offline Chat Content --></div><script type="text/javascript">
+if (!window._laq) { window._laq = []; }
+window._laq.push(function(){liveagent.showWhenOnline('5735A000000khjC', document.getElementById('liveagent_button_online_5735A000000khjC'));
+liveagent.showWhenOffline('5735A000000khjC', document.getElementById('liveagent_button_offline_5735A000000khjC'));
+});</script>
+    
+ 
+       
+        
+       
+    </body>
+    </html>
+</apex:page>

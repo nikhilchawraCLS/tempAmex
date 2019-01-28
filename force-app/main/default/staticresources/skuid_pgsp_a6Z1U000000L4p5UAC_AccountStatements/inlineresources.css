@@ -1,0 +1,56 @@
+html, 
+body,
+div[pagename="AccountStatements"],
+div[pagename="AccountStatements"] > .nx-page-content,
+div[pagename="AccountStatements"] #fs-aggregate,
+div[pagename="AccountStatements"] #fs-balance-sheet,
+div[pagename="AccountStatements"] #fs-balance-sheet-iframe,
+div[pagename="AccountStatements"] #fs-balance-sheet-iframe div,
+div[pagename="AccountStatements"] #fs-balance-sheet-iframe div iframe,
+div[pagename="AccountStatements"] #fs-income-statement,
+div[pagename="AccountStatements"] #fs-income-statement-iframe,
+div[pagename="AccountStatements"] #fs-income-statement-iframe div,
+div[pagename="AccountStatements"] #fs-income-statement-iframe div iframe,
+div[pagename="AccountStatements"] #fs-cashflow,
+div[pagename="AccountStatements"] #fs-cashflow-iframe,
+div[pagename="AccountStatements"] #fs-cashflow-iframe div,
+div[pagename="AccountStatements"] #fs-cashflow-iframe div iframe,
+div[pagename="AccountStatements"] #fs-ratio-analysis,
+div[pagename="AccountStatements"] #fs-ratio-iframe,
+div[pagename="AccountStatements"] #fs-ratio-iframe div,
+div[pagename="AccountStatements"] #fs-ratio-iframe div iframe,
+div[pagename="AccountStatements"] #fs-trend-analysis,
+div[pagename="AccountStatements"] #fs-trend-analysis-iframe,
+div[pagename="AccountStatements"] #fs-trend-analysis-iframe div,
+div[pagename="AccountStatements"] #fs-trend-analysis-iframe div iframe,
+div[pagename="AccountStatements"] #fs-sensitivity-analysis,
+div[pagename="AccountStatements"] #fs-sensitivity-analysis-iframe,
+div[pagename="AccountStatements"] #fs-sensitivity-analysis-iframe div,
+div[pagename="AccountStatements"] #fs-sensitivity-analysis-iframe div iframe{
+    height: 100%;
+}
+
+div[pagename="AccountStatements"] #fs-aggregate {
+    height: calc(100% - 100px);
+}
+
+html {
+    overflow: hidden;
+}
+
+div[pagename="AccountStatements"]{
+    padding-top: 0px;
+}
+
+.nx-editor-header .nx-header-right .ui-button.iconic-button,
+.nx-editor-header .nx-header-right .ui-button.iconic-button.ui-state-hover,
+.nx-editor-header .nx-header-right .ui-button.iconic-button.ui-state-focus,
+.ui-button.iconic-button {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;   
+}

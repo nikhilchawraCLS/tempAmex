@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Fixed_Fee__c</fullName>
+        <externalId>false</externalId>
+        <label>Fixed Fee</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Offer_Validity__c</fullName>
+        <externalId>false</externalId>
+        <label>Offer Validity</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Repayment_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Repayment Method</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Amex Receivables</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>ACH</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>LB</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>AXP</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>Debit ACH</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Repayment_Term__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( genesis__Term__c )  &amp; &apos; Months&apos;</formula>
+        <label>Repayment Term</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Repayment__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Repayment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>genesis__Payment_Frequency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Payment frequency.</inlineHelpText>
+        <label>Payment Frequency</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>MONTHLY</fullName>
+                    <default>true</default>
+                </value>
+                <value>
+                    <fullName>QUARTERLY</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>ANNUAL</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>genesis__Residual_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Type of residual associated with this pricing.</inlineHelpText>
+        <label>Residual Type</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>TERM RESIDUAL</fullName>
+                    <default>false</default>
+                </value>
+                <value>
+                    <fullName>FAIR MARKET VALUE</fullName>
+                    <default>false</default>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+</CustomObject>
